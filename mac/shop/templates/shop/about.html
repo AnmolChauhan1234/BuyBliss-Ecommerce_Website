@@ -1,0 +1,146 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+about
+{% endblock %}
+
+{% block css %}
+
+.about-header {
+  background: #f8f9fa;
+  padding: 80px 0;
+  text-align: center;
+}
+.about-header h1 {
+  font-size: 3rem;
+}
+.feature-section {
+  padding: 60px 0;
+}
+.feature-section h2 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.location-section {
+  padding: 60px 0;
+}
+.location-section h2 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+  .ps1 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .ps2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+{% endblock %}
+
+{% block body %}
+{% load static %}
+
+   <!-- Header Section -->
+   <section class="about-header">
+    <div class="container">
+        <h1>About Our Company</h1>
+        <p class="lead">We deliver the best services for all your needs.</p>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="feature-section">
+    <div class="container">
+        <h2>Essentials Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">100s of Sections</h5>
+                        <p class="card-text">Our product offers a variety of sections that you can explore and customize to fit your brand.</p>
+                        <a href="#" class="btn btn-primary">Explore Feature</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Beautiful Galleries</h5>
+                        <p class="card-text">Easily create stunning image galleries to showcase your products or projects.</p>
+                        <a href="#" class="btn btn-primary">Explore Feature</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/350" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Easy to Customize</h5>
+                        <p class="card-text">Our system is designed with flexibility in mind, making customization simple.</p>
+                        <a href="#" class="btn btn-primary">Explore Feature</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Locations Section -->
+<section class="location-section">
+    <div class="container">
+        <h2>Our Locations</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>New York</h4>
+                <p>Email: newyork@yourdomain.com</p>
+                <p>Phone: 1-800-123-4567</p>
+                <p>123 Somplace Drive, New York, USA</p>
+                <img src="https://via.placeholder.com/500x300" alt="New York" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h4>Toronto</h4>
+                <p>Email: toronto@yourdomain.com</p>
+                <p>Phone: 1-800-123-4567</p>
+                <p>123 Someplace Drive, Toronto, Canada</p>
+                <img src="https://via.placeholder.com/500x300" alt="Toronto" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hero Section -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <!-- Hero Content -->
+    <div class="col-lg-6">
+      <div class="mb-3">
+        <p class="h5">Hello there 👋</p>
+      </div>
+      <div class="mb-3">
+        <h1 class="display-4">My name is Anmol</h1>
+      </div>
+      <div>
+        <p class="lead text-muted">
+          I like hacking through software engineering problems. I have been developing solutions for software reliability. I break complicated concepts into easier tech content (blogs and videos). Recently I've moved into Dev Advocacy amid the crossover of two things I like the most — Tech x Education 💜 What truly excites me is involving people throughout the journey—from ideation to execution. I always look forward to leveraging my skills to enhance communication and understanding between diverse stakeholders.
+        </p>
+      </div>
+    </div>
+    <!-- Hero Image -->
+    <div class="col-lg-6">
+      <div class="text-center">
+        <img
+          src="{% static 'shop/Anmol.jpeg' %}"
+          alt="Man image hero"
+          class="img-fluid rounded-circle"
+        />
+        <p class="mt-3 ps1">Full Stack Developer</p>
+        <p class="ps2">Contact me at <a href="mailto:acanmolchauhan1234@gmail.com">acanmolchauhan1234@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

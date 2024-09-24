@@ -1,0 +1,58 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+Contact us
+{% endblock %}
+
+{% block css %}
+.h4_1 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container">
+  <div class="text-center my-4">
+    <h4 class="h4_1">Get in Touch With Us</h4>
+    <p>Have a question? We’re here to help! Our friendly and knowledgeable customer experience team loves Black Girl Sunscreen and wants to ensure you will too! Feel free to reach us via phone, email, or the form below. You may also refer to our FAQ page to get quick answers to commonly asked questions.</p>
+  </div>
+  <div class="row my-5">
+    <div class="col-md-6">
+      <img 
+        src="{% static 'shop/contactus.png' %}"
+        alt="Contact us image"
+        class="img-fluid mb-2"
+      >
+    </div>
+    <!-- Form Section -->
+    <div class="col-md-6">
+      <form action="" method="post"> {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="abcd@gmail.com" name="email">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone">
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label">How can we help you?</label>
+          <textarea class="form-control" name="desc" placeholder="Leave a comment here" id="desc" style="height: 100px"></textarea>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

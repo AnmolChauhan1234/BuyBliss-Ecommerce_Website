@@ -1,0 +1,32 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+{{ product_tobeshown.product_name }} - BuyBliss
+{% endblock %}
+
+{% block css %}
+.my-8 {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+{% endblock %}
+
+{% block body %}
+<div class="container my-8">
+    <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7 p-4" style="background-color: rgb(244, 241, 236);">
+            <p>Brand: {{ product_tobeshown.product_brand }}</p>
+            <h2 class="featurette-heading fw-normal lh-1">{{ product_tobeshown.product_name }}</h2>
+            <p><b>Rs - </b>{{ product_tobeshown.price }}</p>
+            <p class="lead">{{ product_tobeshown.desc }}</p>
+            <div>
+                <button class="btn btn-primary">Add to cart</button>
+                <button class="btn btn-success">Buy now</button>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <img src="/media/{{ product_tobeshown.image }}" class="img-fluid mx-auto d-block" alt="{{ product_tobeshown.product_name }}">
+        </div>
+    </div>
+</div>
+{% endblock %}

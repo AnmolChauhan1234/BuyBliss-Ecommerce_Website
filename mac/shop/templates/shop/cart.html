@@ -1,0 +1,151 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+about
+{% endblock %}
+
+{% block css %}
+
+.cart-item {
+    background-color: #343a40;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: calc(100% - 20px); /* Adjust width as needed */
+    min-height: 380px; /* Set a minimum height */
+}
+
+.order-summary {
+    position: sticky;
+    top: 20px;
+    height: auto; /* Make sure it's responsive */
+}
+
+        /* Sticky right-side order summary */
+        .order-summary {
+            position: sticky;
+            top: 20px;
+        }
+
+        body {
+            background-color: #2d2f33; /* Dark background similar to the screenshot */
+            color: #fff;
+        }
+
+        /* Styling for cart items */
+        .cart-item {
+            background-color: #343a40;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cart-item img {
+            max-width: 100px;
+            height: auto;
+        }
+
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Left Column - Cart items -->
+        <div id="items" class="col-lg-8 col-md-12">
+            <h4 class="mb-3">Your Cart</h4>
+        </div>
+
+        <!-- Right Column - Order Summary (sticky) -->
+        <div class="col-lg-3 offset-lg-1 col-md-12">
+            <div class="order-summary p-4 bg-dark rounded">
+                <h5>Your Cart Summary</h5>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-white">
+                        <span>Product Name</span>
+                        <strong>$12</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-white">
+                        <span>Second Product</span>
+                        <strong>$8</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-white">
+                        <span>Third Item</span>
+                        <strong>$5</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-white">
+                        <span>Promo code</span>
+                        <strong>-$5</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-white">
+                        <span>Total (USD)</span>
+                        <strong>$20</strong>
+                    </li>
+                </ul>
+
+                <form class="card p-2 bg-dark">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code">
+                        <button type="submit" class="btn btn-secondary">Redeem</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+let cart;
+if(localStorage.getItem('cart')==null){
+    cart ={}
+}
+else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+
+if(localStorage.getItem('cart') == null){
+    let listItem = `<h2>Your cart is empty. Please add some items</h2>`
+    const list = document.querySelector('#items');
+    list.innerHTML += listItem;
+}
+else{
+    let itemKey = Object.keys(cart);
+    let sumCart = 0;
+    itemKey.forEach((item)=>{
+        let qty = cart[item][0];
+        let name = cart[item][1];
+        let image = cart[item][2];
+        let price = cart[item][3];
+        let desc = cart[item][4];
+        let brand = cart[item][5];
+
+        let listItem = `<div class="container my-5">
+                <div class="row featurette d-flex align-items-center">
+                    <div class="col-md-5">
+                        <img src="${image}" class="img-fluid mx-auto d-block" alt="${name}">
+                    </div>
+                    <div class="col-md-7 p-4">
+                        <p>Brand: ${brand}</p>
+                        <h2 class="featurette-heading fw-normal lh-1">${name}</h2>
+                        <p><b>Rs - </b>${price}</p>
+                        <p class="lead">${desc}</p>
+                        <div>
+                            <button class="btn btn-primary">Add to cart</button>
+                            <button class="btn btn-success">Buy now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        const list = document.querySelector('#items');
+        list.innerHTML += listItem;
+        sumCart++;
+    })
+    document.querySelector('#cart').textContent = sumCart;
+}
+
+
+</script>
+{% endblock %}

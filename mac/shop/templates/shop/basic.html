@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>
+      {%block title%}
+      {%endblock%}
+    </title>
+
+    <style>
+      .nav-item.active .nav-link{
+  color: #BF4408;
+  font-weight: bold;
+}
+.nav-item .nav-link:hover{
+  color:#BF4408;
+}
+
+      .btn-outline-success {
+  color: #BF4408;
+  border-color: #BF4408;
+}
+
+.btn-outline-success:hover {
+  background-color: #BF4408;
+  color: #fff;
+}
+
+/* .btn-outline-sucess:active{
+  background-color: #BF4408;
+  color: #fff;
+}
+.btn-outline-success:focus {
+  box-shadow: none;
+  border-color: #ccc;
+} */
+    
+        .dropdown-item:hover {
+            background-color: #f0efef; /* change to your desired hover color */
+        }
+
+        .dropdown-item-space {
+            height: 10px; /* adjust the height to your desired space */
+        }
+        .fp{
+          font-size: 1.5rem;
+          font-weight: 500;
+        }
+        .fa{
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+
+        .navbar {
+          background-color: #FBFAF9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+        
+        
+        {% block css %} 
+        {% endblock %}  
+    </style>
+  </head>
+  <body>
+  {% load static %}
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+      <a class="navbar-brand" href="/shop">BuyBliss</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item {% if active_page == 'index' %}active{% endif %}">
+            <a class="nav-link" href="/shop">
+              Home
+              {% if active_page == 'index' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item {% if active_page == 'about' %}active{% endif %}">
+            <a class="nav-link" href="/shop/about">
+              About us 
+              {% if active_page == 'about' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item {% if active_page == 'tracker' %}active{% endif %}">
+            <a class="nav-link" href="/shop/tracker">
+              Tracker
+              {% if active_page == 'tracker' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item {% if active_page == 'contact' %}active{% endif %}">
+            <a class="nav-link" href="/shop/contact">
+              Contact us
+              {% if active_page == 'contact' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item {% if active_page == 'contact' %}active{% endif %}"></li>
+            <a class="nav-link" href="/shop/checkout">
+              checkout
+              {% if active_page == 'contact' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item {% if active_page == 'contact' %}active{% endif %}"></li>
+            <a class="nav-link" href="/shop/cart">
+              cart
+              {% if active_page == 'contact' %}
+                <span class="visually-hidden">(current)</span>
+              {% endif %}
+            </a>
+          </li>
+          
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <div class="btn-group mx-2">
+          <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Login
+          </button>
+          <ul class="dropdown-menu">
+              <div class="text-center">
+                <p class="mx-2 fp">new customer?</p>
+                <a class="fa" href="#">Sign Up</a>
+              </div>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li class="dropdown-item-space"></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li class="dropdown-item-space"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li class="dropdown-item-space"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+      </div>
+      <button type="button" class="btn btn-secondary mx-2" id="popcart" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="<div><h5>Cart for your items in my shopping</h5></div>">
+        <i class="fa-solid fa-cart-shopping"></i>(<span id="cart">0</span>)
+      </button>       <!-- popover not working -->
+      </div>
+    </nav>
+  {%block body%}
+  {%endblock%}
+
+  <!-- Optional JavaScript -->
+  <!-- Popper.js first, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+  {% block js %}
+  {% endblock %}
+  </body>
+</html>
