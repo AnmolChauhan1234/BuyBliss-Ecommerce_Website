@@ -4,7 +4,153 @@
 about
 {%endblock%}
 
+{% block css %}
+<style>
+    .sticky-sidebar {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px; /* Adjust this value as per your layout */
+        }
 
-{%block body%} 
-tracker
+        /* Progress Bar and Step Circles */
+        .progress-step {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .progress-bar-custom {
+            width: 100%;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            position: relative;
+            margin-top: 20px;
+        }
+        .progress-bar-fill {
+            background-color: #28a745;
+            height: 100%;
+            width: 60%; /* Update this percentage according to progress */
+            border-radius: 5px;
+        }
+        .step-circle {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #28a745;
+            border-radius: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+            text-align: center;
+            line-height: 24px;
+            color: white;
+            font-size: 12px;
+        }
+        .step-label {
+            position: absolute;
+            top: 35px;
+            font-size: 12px;
+            text-align: center;
+            width: 20%;
+            transform: translateX(-50%);
+        }
+</style>
+{% endblock %}  
+
+{%block body%}
+
+<!-- Container -->
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- Left Section: Order tracking details -->
+        <div class="col-md-8">
+            <h4>Order History</h4>
+            <p><strong>Expected delivery:</strong> Tomorrow</p>
+            <p><strong>Status:</strong> On its way</p>
+
+            <!-- Progress Bar for Order Tracking -->
+            <div class="progress-step">
+                <!-- Step Labels -->
+                <div class="step-label" style="left: 0%;">Order Placed</div>
+                <div class="step-label" style="left: 33%;">Dispatched</div>
+                <div class="step-label" style="left: 66%;">In Transit</div>
+                <div class="step-label" style="left: 100%;">Delivered</div>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar-custom">
+                    <div class="progress-bar-fill"></div>
+
+                    <!-- Step Circles -->
+                    <div class="step-circle" style="left: 0%;">1</div>
+                    <div class="step-circle" style="left: 33%;">2</div>
+                    <div class="step-circle" style="left: 66%;">3</div>
+                    <div class="step-circle" style="left: 100%;">4</div>
+                </div>
+            </div>
+
+            <button class="btn btn-dark mt-4">Track Your Package</button>
+            <p class="mt-2"><strong>Tracking Number:</strong> FU879284B05GB</p>
+
+            <!-- Product Information -->
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="path-to-image.jpg" class="img-fluid rounded-start" alt="Product Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Adicolor Essentials Trefoil Tank Top</h5>
+                            <p class="card-text">Size: M</p>
+                            <p class="card-text">Colour: Glory Mint</p>
+                            <p class="card-text">Product Code: H10174</p>
+                            <p class="card-text"><strong>Discounted Price: €12.75</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Sticky sidebar for order details -->
+        <div class="col-md-4 px-5">
+            <div class="sticky-sidebar">
+                <h5>Order Details</h5>
+                <p><strong>Order Number:</strong> AUK68089500</p>
+                <p><strong>Date Placed:</strong> Mon, 9 Oct</p>
+                <a href="#" class="btn btn-outline-dark">Download Invoice</a>
+
+                <!-- Delivery Information -->
+                <h6 class="mt-4">Delivery</h6>
+                <p><strong>Carrier:</strong> Royal Mail - Standard Delivery</p>
+                <p><strong>Delivery Address:</strong> John Newman<br>+44 123 4567890<br>john.newman@example.com</p>
+
+                <!-- Payment Information -->
+                <h6>Payment Method</h6>
+                <p>Credit/Debit Card (... 9549)</p>
+
+                <!-- Totals -->
+                <h6>Totals</h6>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>1 item</span>
+                        <span>€15.00</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Delivery</span>
+                        <span>€3.99</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total Discount</span>
+                        <span>-€6.24</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Grand Total</span>
+                        <span><strong>€12.75</strong></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 {%endblock%}

@@ -236,7 +236,7 @@ function updateCart(cart){
     })
     localStorage.setItem('cart',JSON.stringify(cart));
     document.getElementById('cart').textContent = sumCart;
-    updatePopover(cart);
+    // updatePopover(cart);
 }
 
 
@@ -259,56 +259,57 @@ document.querySelectorAll(".divpr").forEach((button)=>{
 
 
 // creating a popover
-const exampleEl = document.getElementById('popcart');
- popover = new bootstrap.Popover(exampleEl, {
-  container: '',
-  placement: '',
-  content: '<div><h5>Cart for your items in my shopping</h5></div>',
-  html: true
-});
-popover.show();
 
-function updatePopover(cart) {
-    let popStr = `<div><h5>Cart for your items in my shopping</h5><div class="mx-2 my-2">`;
-    let index = 1;
-    let itemKey = Object.keys(cart);
+// const exampleEl = document.getElementById('popcart');
+//  popover = new bootstrap.Popover(exampleEl, {
+//   container: '',
+//   placement: '',
+//   content: '<div><h5>Cart for your items in my shopping</h5></div>',
+//   html: true
+// });
+// popover.show();
 
-    itemKey.forEach((item) => {
-        const itemName = document.getElementById(`name${item}`).textContent;
-        popStr += `<b>${index}</b>. ${itemName.slice(0, 19)}... Qty: ${cart[item][0]}<br>`;
-        index++;
-    });
+// function updatePopover(cart) {
+//     let popStr = `<div><h5>Cart for your items in my shopping</h5><div class="mx-2 my-2">`;
+//     let index = 1;
+//     let itemKey = Object.keys(cart);
 
-    popStr += `</div>
-               <a href='/shop/checkout'>
-                  <button class='btn btn-primary' id='checkout'>Checkout</button>
-               </a> `
-               // `<button class='btn btn-primary' id='clearCart'>Clear Cart</button></div>`;
-    console.log(popStr)
+//     itemKey.forEach((item) => {
+//         const itemName = document.getElementById(`name${item}`).textContent;
+//         popStr += `<b>${index}</b>. ${itemName.slice(0, 19)}... Qty: ${cart[item][0]}<br>`;
+//         index++;
+//     });
 
-    const popcartEl = document.getElementById('popcart');
+//     popStr += `</div>
+//                <a href='/shop/checkout'>
+//                   <button class='btn btn-primary' id='checkout'>Checkout</button>
+//                </a> `
+//                // `<button class='btn btn-primary' id='clearCart'>Clear Cart</button></div>`;
+//     console.log(popStr)
 
-    // Dispose of existing popover instance if it exists
-    let existingPopover = bootstrap.Popover.getInstance(popcartEl);
-    if (existingPopover) {
-        existingPopover.dispose();
-    }
+//     const popcartEl = document.getElementById('popcart');
 
-    // Initialize the popover manually with the dynamically set content
-    const popover = new bootstrap.Popover(popcartEl, {
-        content: popStr,  // Set the content directly here
-        html: true,
-        placement: 'bottom' // Define placement
-    });
+//     // Dispose of existing popover instance if it exists
+//     let existingPopover = bootstrap.Popover.getInstance(popcartEl);
+//     if (existingPopover) {
+//         existingPopover.dispose();
+//     }
 
-    // Show the popover manually
-    popover.show();
-}
+//     // Initialize the popover manually with the dynamically set content
+//     const popover = new bootstrap.Popover(popcartEl, {
+//         content: popStr,  // Set the content directly here
+//         html: true,
+//         placement: 'bottom' // Define placement
+//     });
 
-// Trigger the popover on button click
-document.getElementById('popcart').addEventListener('click', function () {
-    updatePopover(cart);
-});
+//     // Show the popover manually
+//     popover.show();
+// }
+
+// // Trigger the popover on button click
+// document.getElementById('popcart').addEventListener('click', function () {
+//     updatePopover(cart);
+// });
 
 
 </script>
