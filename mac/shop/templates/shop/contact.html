@@ -20,7 +20,7 @@ Contact us
   </div>
   <div class="row my-5">
     <div class="col-md-6">
-      <img 
+      <img
         src="{% static 'shop/contactus.png' %}"
         alt="Contact us image"
         class="img-fluid mb-2"
@@ -28,7 +28,8 @@ Contact us
     </div>
     <!-- Form Section -->
     <div class="col-md-6">
-      <form action="" method="post"> {% csrf_token %}
+      <form action="" method="post"> {% csrf_token %}        
+        <!-- here action="" means the form will submit the data to the current URL  -->
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name">

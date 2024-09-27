@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product,Contact,Order
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth  import authenticate,  login, logout
+from django.http import JsonResponse
 from math import ceil
 
 # Create your views here.
@@ -66,4 +70,80 @@ def checkout(request):
     return render(request, 'shop/checkout.html')
 def cart(request):
     return render(request, 'shop/cart.html')
+
+def handleSignup(request):
+    if request.method == "POST":
+        # Get the post parameters
+        username = request.POST.get('username','')
+        fname = request.POST.get('fname','')
+        lname = request.POST.get('lname','')
+        email = request.POST.get('signupEmail','')
+        pass1 = request.POST.get('signupPassword','')
+        pass2 = request.POST.get('confirmPassword','')
+
+        # check for errorneous input
+        if len(username) > 10:
+            # messages.error(request, "Username must be under 20 characters")
+            # return redirect("/shop")
+            return JsonResponse({'status': 'error', 'message': 'Username must be under 10 characters'})
+        if not username.isalnum():
+            # messages.error(request, "Username should only contain letters and numbers")
+            # return redirect("/shop")
+            return JsonResponse({'status': 'error', 'message': 'Username should only contain letters and numbers'})
+        if pass1 != pass2:
+            # messages.error(request, "Passwords doesn't match")
+            # return redirect("/shop")
+            return JsonResponse({'status': 'error', 'message': "Passwords don't match"})
+
+
+        # Create the user
+        myUser = User.objects.create_user(username,email,pass1)
+        myUser.first_name = fname
+        myUser.last_name = lname
+        myUser.save()
+
+        # messages.success(request, "Your account has been succesfully created")
+        # return redirect('/shop')
+        return JsonResponse({'status': 'success', 'message': 'Account created successfully!'})
+    
+    else:
+        # return HttpResponse('404 - Not found')
+        return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+        
+    
+
+def handleLogin(request):
+    if request.method == "POST":
+        # Get the post parameters
+        loginemail = request.POST.get('loginEmail','')
+        loginpassword = request.POST.get('loginPassword','')
+
+        try:
+            user = User.objects.get(email=loginemail)
+            user = authenticate(username=user.username,password=loginpassword)
+            if user is not None:
+                login(request, user)
+                # messages.success(request, "Successfully Logged In")
+                # return redirect('/shop')
+                return JsonResponse({'status': 'success', 'message': 'Login successfull'})
+            else:
+                # messages.error(request, "Invalid credentials! Please try again")
+                # return redirect("/shop")
+                return JsonResponse({'status': 'error', 'message': 'Invalid credentials! Please try again'})
+        except User.DoesNotExist:
+            # If no user is found with the provided email
+            # messages.error(request, "Email not found! Please try again")
+            # return redirect("/shop")
+            return JsonResponse({'status': 'error', 'message': 'Email not found! Please try again'})
+    # return HttpResponse("404- Not found")
+    return JsonResponse({'status': 'error', 'message': '404- Not found'})
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request, "Successfully Logged out")
+    return redirect('/shop')
+
+
+
+
 
