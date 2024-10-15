@@ -98,7 +98,69 @@ about
 
 {% block js %}
 <script>
-let cart;
+
+const isLoggedIn = '{{ user.is_authenticated }}' === 'True';
+
+if(isLoggedIn){
+    // Fetch cart items from the server (Django view)
+    fetch('view_cart/', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Django's CSRF token for security
+            }
+        })
+    .then(response => response.json())
+                .then(data => {
+                    const cartItems = data.cart;  // Array of items from the response
+                    let sumCart = 0;
+
+                    // Clear the current list before populating
+                    const list = document.querySelector('#items');
+                    list.innerHTML = '';
+
+                    if (cartItems.length === 0) {
+                        list.innerHTML = '<h2>Your cart is empty.</h2>';
+                    } else {
+                        cartItems.forEach(item => {
+                            const qty = cart[item][0]
+                            const name = cart[item][1] // Assuming product name is in product object
+                            const image = cart[item][2]// Assuming the image URL is in the product object
+                            const price = cart[item][3]
+                            const desc = cart[item][4] // Assuming description is in product object
+                            const brand = cart[item][5] // Assuming brand is in product object
+
+                            const listItem = `<div class="container my-5">
+                                <div class="row featurette d-flex align-items-center">
+                                    <div class="col-md-5">
+                                        <img src="${image}" class="img-fluid mx-auto d-block" alt="${name}">
+                                    </div>
+                                    <div class="col-md-7 p-4">
+                                        <p>Brand: ${brand}</p>
+                                        <h2 class="featurette-heading fw-normal lh-1">${name}</h2>
+                                        <p><b>Rs - </b>${price}</p>
+                                        <p class="lead">${desc}</p>
+                                        <p><b>Quantity: </b>${qty}</p>
+                                        <div>
+                                            <button class="btn btn-primary">Add to cart</button>
+                                            <button class="btn btn-success">Buy now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                            
+                            list.innerHTML += listItem;
+                            sumCart++;
+                        });
+                        document.querySelector('#cart').textContent = sumCart;
+                    }
+                })
+                .catch(error => console.error('Error fetching cart items:', error));
+        }
+else{
+    // Local storage logic if the user is not logged in
+    let cart;
 if(localStorage.getItem('cart')==null){
     cart ={}
 }
@@ -145,6 +207,9 @@ else{
     })
     document.querySelector('#cart').textContent = sumCart;
 }
+}
+
+
 
 
 </script>

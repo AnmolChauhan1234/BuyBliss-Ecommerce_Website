@@ -22,3 +22,8 @@
 ## The aria-label attribute is used to provide an accessible label for screen readers, helping users who rely on these tools to understand what each button or element represents.
 ## Why Use aria-label="Slide {{i|add:1}}"?
 ## In the context of a Bootstrap carousel, the aria-label attribute on the slide buttons usually indicates which slide number the button will take the user to. Since the carousel uses zero-based indexing for data-bs-slide-to, you might want the aria-label to start counting from 1 for better accessibility.
+
+
+## jab user login nhi hoga tab vo jo item cart me dalega vo sab uski localstorage pe save honge fir agar vo login krega toh vo uske database pe save hojaenge.   
+## fir agar user logout krega toh cart toh uske dataabase pe save rhegi. lekin localstorage pe se cart khali hojaegi.
+
