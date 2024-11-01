@@ -491,19 +491,26 @@ font-weight:600;
         button.addEventListener('click', (e) => {
             if (e.target.classList.contains('minus')) {
                 console.log("minus")
-                const id = button.id.slice(5);
-                var productId = id.replace(/\D/g, '');
+                const id = e.target.id.slice(5);
+                var productId = id.replace(/\D/g, '');     // The replace(/\D/g, '') removes all non-digit characters from the string id
                 if (isLoggedIn) {
                     fetch('decreaseQuantity/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': '{{ csrf_token }}'
-                        },
+                          },
                         body: JSON.stringify({
                             item_id: productId,
                         })
                     })
+                    .then(response => response.json())
+                    .then((data)=>{
+                        let quantity = data.quantity;
+                        console.log(`val${id}`)
+                        document.getElementById(`val${id}`).textContent = quantity;
+                    })
+                    .catch(error => console.log("error",error));
                 }
                 else {
                     cart[id][0] = Math.max(0, (cart[id][0] || 1) - 1);
@@ -512,7 +519,9 @@ font-weight:600;
                 updateCart(cart);
             }
             else if (e.target.classList.contains('plus')) {
-                const id = button.id.slice(4);
+                console.log("Button ID: ", button.id);  // This should log "pluspr2"
+                const id = e.target.id.slice(4);
+                console.log("Extracted ID: ", id); 
                 var productId = id.replace(/\D/g, '');
                 if (isLoggedIn) {
                     fetch('increaseQuantity/', {
@@ -525,6 +534,13 @@ font-weight:600;
                             item_id: productId,
                         })
                     })
+                    .then(response => response.json())
+                    .then((data)=>{
+                        let quantity = data.quantity;
+                        console.log(`val${id}`)
+                        document.getElementById(`val${id}`).textContent = quantity;
+                    })
+                    .catch(error => console.log("error",error));
                 }
                 else {
                     cart[id][0] = (cart[id][0] || 0) + 1;

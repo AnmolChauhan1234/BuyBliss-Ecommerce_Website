@@ -98,7 +98,7 @@ def handleSignup(request):
             # messages.error(request, "Passwords doesn't match")
             # return redirect("/shop")
             return JsonResponse({'status': 'error', 'message': "Passwords don't match"})
-
+    
 
         # Create the user
         myUser = User.objects.create_user(username,email,pass1)
@@ -336,30 +336,107 @@ def updateCart(request):
     return JsonResponse({'cart': {}})
 
 
+# def decreaseQuantity(request):
+#     if request.method == 'POST' and request.user.is_authenticated:
+#         data = json.loads(request.body)
+#         item_id = data.get('item_id')
+#         print(data)
+#         print(item_id)
+
+#         cart = Cart.objects.get(user=request.user)
+#         cart_item = cartItem.objects.get(cart=cart,product_id=item_id)
+
+#         if (cart_item.quantity > 0):
+#             cart_item.quantity -= 1
+
+#         cart_item.save()
+
 def decreaseQuantity(request):
-    if request.method == 'POST' and request.user.is_authenticated:
-        data = json.loads(request.body)
-        item_id = data.get('item_id')
-        print(data)
-        print(item_id)
+    if request.user.is_authenticated:
+        try:
+            # Parse the incoming request body
+            data = json.loads(request.body)
+            item_id = data.get('item_id')
 
-        cart = Cart.objects.get(user=request.user)
-        cart_item = cartItem.objects.get(cart=cart,product_id=item_id)
+            # Fetch the cart for the authenticated user
+            cart = Cart.objects.get(user=request.user)
 
-        if (cart_item.quantity > 0):
-            cart_item.quantity -= 1
+            # Fetch the specific cart item using the cart and product_id
+            cart_item = cartItem.objects.get(cart=cart, product_id=item_id)
 
-        cart_item.save()
+            # Increase the quantity of the cart item
+            if (cart_item.quantity > 0):
+                cart_item.quantity -= 1
+
+            cart_item.save()
+
+            # Return success response
+            return JsonResponse({'success': True, 'quantity': cart_item.quantity})
+        
+        except Cart.DoesNotExist:
+            # If no cart is found for the user
+            return JsonResponse({'error': 'Cart not found'}, status=404)
+        
+        except cartItem.DoesNotExist:
+            # If the cart item doesn't exist
+            return JsonResponse({'error': 'Cart item not found'}, status=404)
+        
+        except Exception as e:
+            # For any other exceptions, return a 500 error with the exception message
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        # If the user is not authenticated, return a 403 Forbidden response
+        return JsonResponse({'error': 'User not authenticated'}, status=403)
 
 
+
+# def increaseQuantity(request):
+#     if request.method == 'POST' and request.user.is_authenticated:
+#         data = json.loads(request.body)
+#         item_id = data.get('item_id')
+
+#         cart = Cart.objects.get(user=request.user)
+#         cart_item = cartItem.objects.get(cart=cart,product_id=item_id)
+
+#         cart_item.quantity += 1
+
+#         cart_item.save()
+
+
+# @require_POST  # This ensures only POST requests are allowed
 def increaseQuantity(request):
-    if request.method == 'POST' and request.user.is_authenticated:
-        data = json.loads(request.body)
-        item_id = data.get('item_id')
+    if request.user.is_authenticated:
+        try:
+            # Parse the incoming request body
+            data = json.loads(request.body)
+            item_id = data.get('item_id')
 
-        cart = Cart.objects.get(user=request.user)
-        cart_item = cartItem.objects.get(cart=cart,product_id=item_id)
+            # Fetch the cart for the authenticated user
+            cart = Cart.objects.get(user=request.user)
 
-        cart_item.quantity += 1
+            # Fetch the specific cart item using the cart and product_id
+            cart_item = cartItem.objects.get(cart=cart, product_id=item_id)
 
-        cart_item.save()
+            # Increase the quantity of the cart item
+            cart_item.quantity += 1
+            cart_item.save()
+
+            # Return success response
+            return JsonResponse({'success': True, 'quantity': cart_item.quantity})
+        
+        except Cart.DoesNotExist:
+            # If no cart is found for the user
+            return JsonResponse({'error': 'Cart not found'}, status=404)
+        
+        except cartItem.DoesNotExist:
+            # If the cart item doesn't exist
+            return JsonResponse({'error': 'Cart item not found'}, status=404)
+        
+        except Exception as e:
+            # For any other exceptions, return a 500 error with the exception message
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        # If the user is not authenticated, return a 403 Forbidden response
+        return JsonResponse({'error': 'User not authenticated'}, status=403)
+
+    
